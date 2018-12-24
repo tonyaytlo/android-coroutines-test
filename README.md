@@ -1,2 +1,2 @@
 # android-coroutines-test
-Coroutines kotlin in android
+Coroutines kotlin in android app
