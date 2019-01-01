@@ -10,9 +10,9 @@ sealed class Result<out Value, out Error : Throwable> {
 
     fun isSuccess() = this is Success<Value>
 
-    fun take(success: (Value) -> Any, failure: (Error) -> Any): Any =
+    fun take(onSuccess: (Value) -> Any, onFailure: (Error) -> Any): Any =
         when (this) {
-            is Success -> success(value)
-            is Failure -> failure(error)
+            is Success -> onSuccess(value)
+            is Failure -> onFailure(error)
         }
 }
