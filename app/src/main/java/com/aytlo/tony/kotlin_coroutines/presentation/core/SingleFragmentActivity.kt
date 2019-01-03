@@ -2,30 +2,29 @@ package com.aytlo.tony.kotlin_coroutines.presentation.core
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
-import com.aytlo.tony.kotlin_coroutines.R.id
-import com.aytlo.tony.kotlin_coroutines.R.layout
+import com.aytlo.tony.kotlin_coroutines.R
 import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.inTransaction
 import kotlinx.android.synthetic.main.toolbar.*
 
 
-abstract class BaseActivity : AppCompatActivity() {
+abstract class SingleFragmentActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_base_layout)
+        setContentView(R.layout.activity_base_layout)
         setSupportActionBar(toolbar)
         addFragment(savedInstanceState)
     }
 
     override fun onBackPressed() {
-        (supportFragmentManager.findFragmentById(id.fragmentContainer) as BaseFragment).onBackPressed()
+        (supportFragmentManager.findFragmentById(R.id.fragmentContainer) as BaseFragment).onBackPressed()
         super.onBackPressed()
     }
 
     private fun addFragment(savedInstanceState: Bundle?) =
         savedInstanceState ?: supportFragmentManager.inTransaction {
             add(
-                id.fragmentContainer, fragment()
+                R.id.fragmentContainer, fragment()
             )
         }
 

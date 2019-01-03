@@ -1,11 +1,14 @@
 package com.aytlo.tony.kotlin_coroutines.domain.core
 
 import com.aytlo.tony.kotlin_coroutines.data.core.Result
-import kotlinx.coroutines.*
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.async
+import kotlinx.coroutines.launch
 
 
 abstract class UseCase<out Type : Any, in Params>(
-    private val scope: CoroutineScope = GlobalScope,
+    private val scope: CoroutineScope = CoroutineScope(Dispatchers.IO),
     private val postScope: CoroutineScope = CoroutineScope(Dispatchers.Main)
 ) {
 
