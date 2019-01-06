@@ -27,16 +27,16 @@ class ApplicationModule(private val application: AndroidApp) {
     @Provides
     @Singleton
     fun provideNewsApi(retrofit: Retrofit): NewsApi =
-        NewsService(retrofit.create(NewsApi::class.java))
+            NewsService(retrofit.create(NewsApi::class.java))
 
     @Provides
     @Singleton
     fun provideRetrofit(okHttpClient: OkHttpClient): Retrofit {
         return Retrofit.Builder()
-            .baseUrl(provideBaseUrl())
-            .client(okHttpClient)
-            .addConverterFactory(GsonConverterFactory.create())
-            .build()
+                .baseUrl(provideBaseUrl())
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build()
     }
 
     @Provides
@@ -54,6 +54,6 @@ class ApplicationModule(private val application: AndroidApp) {
     @Provides
     @Singleton
     fun provideAuthInterceptor(context: Context): Interceptor =
-        AuthenticationInterceptor(context)
+            AuthenticationInterceptor(context)
 
 }

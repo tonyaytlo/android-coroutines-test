@@ -21,17 +21,13 @@ class NewsDelegateAdapter(context: Context) : AdapterDelegate<MutableList<BaseIt
     private val inflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
-        NewsViewHolder(inflater.inflate(R.layout.item_news, parent, false))
+            NewsViewHolder(inflater.inflate(R.layout.item_news, parent, false))
 
     override fun isForViewType(items: MutableList<BaseItemModel>, position: Int): Boolean =
-        items[position].getViewType() == VIEW_TYPE
+            items[position].getViewType() == VIEW_TYPE
 
-    override fun onBindViewHolder(
-        items: MutableList<BaseItemModel>,
-        position: Int,
-        holder: RecyclerView.ViewHolder,
-        payloads: MutableList<Any>
-    ) {
+    override fun onBindViewHolder(items: MutableList<BaseItemModel>, position: Int,
+                                  holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
         (holder as NewsViewHolder).bind(items[position] as News)
     }
 

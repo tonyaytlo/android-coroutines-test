@@ -21,7 +21,7 @@ public suspend fun <T : Any> Call<T>.await(): T {
                 continuation.resumeWith(runCatching {
                     if (response.isSuccessful) {
                         response.body()
-                            ?: throw NullPointerException("Response body is null: $response")
+                                ?: throw NullPointerException("Response body is null: $response")
                     } else {
                         throw HttpException(response)
                     }

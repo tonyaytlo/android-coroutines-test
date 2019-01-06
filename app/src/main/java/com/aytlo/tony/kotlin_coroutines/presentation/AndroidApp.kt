@@ -13,8 +13,8 @@ class AndroidApp : Application() {
 
     val appComponent: ApplicationComponent by unsafeLazy {
         DaggerApplicationComponent.builder()
-            .applicationModule(ApplicationModule(this))
-            .build()
+                .applicationModule(ApplicationModule(this))
+                .build()
     }
 
     override fun onCreate() {

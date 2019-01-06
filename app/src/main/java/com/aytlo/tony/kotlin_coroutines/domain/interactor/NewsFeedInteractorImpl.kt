@@ -11,7 +11,7 @@ import javax.inject.Inject
 
 class NewsFeedInteractorImpl
 @Inject constructor(private val newsPaginator: Paginator<News>) :
-    UseCase<UseCase.None, NewsFeedInteractorImpl.Action>(), NewsFeedInteractor {
+        UseCase<UseCase.None, NewsFeedInteractorImpl.Action>(), NewsFeedInteractor {
 
     override fun loadNextPage() {
         invoke(Action {

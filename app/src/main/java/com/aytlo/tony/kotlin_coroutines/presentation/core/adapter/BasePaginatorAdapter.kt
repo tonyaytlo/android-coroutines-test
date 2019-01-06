@@ -6,9 +6,9 @@ import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import com.hannesdorfmann.adapterdelegates4.ListDelegationAdapter
 
 abstract class BasePaginatorAdapter(
-    context: Context,
-    retryAction: (() -> Unit)?,
-    vararg delegates: AdapterDelegate<MutableList<BaseItemModel>>
+        context: Context,
+        retryAction: (() -> Unit)?,
+        vararg delegates: AdapterDelegate<MutableList<BaseItemModel>>
 ) : ListDelegationAdapter<MutableList<BaseItemModel>>(), PaginationAdapter<MutableList<BaseItemModel>> {
 
     companion object {

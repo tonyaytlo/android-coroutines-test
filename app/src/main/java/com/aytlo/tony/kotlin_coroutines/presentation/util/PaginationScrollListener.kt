@@ -5,10 +5,10 @@ import androidx.recyclerview.widget.RecyclerView
 
 
 class PaginationScrollListener(
-    internal val layoutManager: LinearLayoutManager,
-    private val onScrolledEnd: () -> Unit
+        internal val layoutManager: LinearLayoutManager,
+        private val onScrolledEnd: () -> Unit
 ) :
-    RecyclerView.OnScrollListener() {
+        RecyclerView.OnScrollListener() {
 
     override fun onScrolled(recyclerView: RecyclerView, dx: Int, dy: Int) {
         super.onScrolled(recyclerView, dx, dy)

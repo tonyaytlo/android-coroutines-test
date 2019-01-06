@@ -17,6 +17,6 @@ class DomainModule {
 
     @Provides
     fun provideNewsFeedInteractor(newsPaginator: Paginator<News>): NewsFeedInteractor =
-        NewsFeedInteractorImpl(newsPaginator)
+            NewsFeedInteractorImpl(newsPaginator)
 
 }

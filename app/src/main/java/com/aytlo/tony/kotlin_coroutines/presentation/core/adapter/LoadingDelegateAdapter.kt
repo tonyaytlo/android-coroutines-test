@@ -26,23 +26,14 @@ class LoadingDelegateAdapter(context: Context) : AdapterDelegate<MutableList<Bas
     private val inflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
-        LoadingViewHolder(
-            inflater.inflate(
-                R.layout.item_base_loading,
-                parent,
-                false
-            )
-        )
+            LoadingViewHolder(inflater.inflate(R.layout.item_base_loading,
+                    parent, false))
 
     override fun isForViewType(items: MutableList<BaseItemModel>, position: Int): Boolean =
-        items[position].getViewType() == VIEW_TYPE
+            items[position].getViewType() == VIEW_TYPE
 
-    override fun onBindViewHolder(
-        items: MutableList<BaseItemModel>,
-        position: Int,
-        holder: RecyclerView.ViewHolder,
-        payloads: MutableList<Any>
-    ) {
+    override fun onBindViewHolder(items: MutableList<BaseItemModel>, position: Int,
+                                  holder: RecyclerView.ViewHolder, payloads: MutableList<Any>) {
         //nothing
     }
 

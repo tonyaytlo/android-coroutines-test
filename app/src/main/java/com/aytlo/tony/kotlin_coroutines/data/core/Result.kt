@@ -12,16 +12,15 @@ sealed class Result<out Value, out Error : Throwable> {
     fun isSuccess() = this is Success<Value>
 
     fun take(onSuccess: (Value) -> Any, onFailure: (Error) -> Any): Any =
-        when (this) {
-            is Success -> onSuccess(value)
-            is Failure -> onFailure(error)
-        }
+            when (this) {
+                is Success -> onSuccess(value)
+                is Failure -> onFailure(error)
+            }
 }
 
-
 fun <From, To, Error : Throwable> Result<From, Error>.map(transform: (From) -> To): Result<To, Error> =
-    when (this) {
-        is Result.Success -> Result.Success(transform(value))
-        is Result.Failure -> this
-    }
+        when (this) {
+            is Result.Success -> Result.Success(transform(value))
+            is Result.Failure -> this
+        }
 

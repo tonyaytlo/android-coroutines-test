@@ -5,4 +5,4 @@ import com.aytlo.tony.kotlin_coroutines.presentation.core.adapter.BasePaginatorA
 
 
 class NewsPaginationAdapter(context: Context, retryAction: (() -> Unit)?) :
-    BasePaginatorAdapter(context, retryAction, NewsDelegateAdapter(context))
+        BasePaginatorAdapter(context, retryAction, NewsDelegateAdapter(context))

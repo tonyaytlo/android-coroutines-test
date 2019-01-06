@@ -18,9 +18,9 @@ class AuthenticationInterceptor
     override fun intercept(chain: Interceptor.Chain): Response {
         val originalRequest = chain.request()
         val modifiedRequest = originalRequest
-            .newBuilder()
-            .addHeader(QUERY_API_KEY, getApiKey())
-            .build()
+                .newBuilder()
+                .addHeader(QUERY_API_KEY, getApiKey())
+                .build()
         return chain.proceed(modifiedRequest)
     }
 

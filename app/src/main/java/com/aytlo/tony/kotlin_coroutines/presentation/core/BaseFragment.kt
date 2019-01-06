@@ -23,7 +23,7 @@ abstract class BaseFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-        inflater.inflate(layoutId(), container, false)
+            inflater.inflate(layoutId(), container, false)
 
 
     fun showError(message: String) {

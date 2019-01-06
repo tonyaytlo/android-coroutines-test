@@ -22,11 +22,9 @@ abstract class SingleFragmentActivity : AppCompatActivity() {
     }
 
     private fun addFragment(savedInstanceState: Bundle?) =
-        savedInstanceState ?: supportFragmentManager.inTransaction {
-            add(
-                R.id.fragmentContainer, fragment()
-            )
-        }
+            savedInstanceState ?: supportFragmentManager.inTransaction {
+                add(R.id.fragmentContainer, fragment())
+            }
 
     abstract fun fragment(): BaseFragment
 

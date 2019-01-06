@@ -29,13 +29,11 @@ class NewsFeedPaginator
 
     private fun loadPage(page: Int, reload: Boolean = false) {
         newsRepository.search(page, pageSize)
-            .take(
-                {
+                .take({
                     this.currentPage = page
                     postNewState(PaginationState(it.results, reload, page, false))
                 },
-                { postNewState(PaginationState(mutableListOf(), reload, page, true)) }
-            )
+                        { postNewState(PaginationState(mutableListOf(), reload, page, true)) })
     }
 
     private fun postNewState(paginationState: PaginationState<News>) {

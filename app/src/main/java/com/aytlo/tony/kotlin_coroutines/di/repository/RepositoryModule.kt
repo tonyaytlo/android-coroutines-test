@@ -14,5 +14,5 @@ class RepositoryModule {
     @Provides
     @Singleton
     fun provideNewsRepository(newsService: NewsService, networkHandler: NetworkHandler): NewsRepository =
-        NewsRepositoryImpl(newsService, networkHandler)
+            NewsRepositoryImpl(newsService, networkHandler)
 }

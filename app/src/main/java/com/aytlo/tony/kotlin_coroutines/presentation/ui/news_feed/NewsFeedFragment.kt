@@ -80,7 +80,7 @@ class NewsFeedFragment : BaseFragment() {
     private fun initUi() {
         rvNews.layoutManager = LinearLayoutManager(activity)
         rvNews.addOnScrollListener(
-            PaginationScrollListener(rvNews.layoutManager as LinearLayoutManager) { newsFeedViewModel.onLoadMore() })
+                PaginationScrollListener(rvNews.layoutManager as LinearLayoutManager) { newsFeedViewModel.onLoadMore() })
         srNews.setOnRefreshListener { newsFeedViewModel.onReload() }
         newsPaginationAdapter = NewsPaginationAdapter(activity!!) { newsFeedViewModel.retryLoadMore() }
         rvNews.adapter = newsPaginationAdapter
