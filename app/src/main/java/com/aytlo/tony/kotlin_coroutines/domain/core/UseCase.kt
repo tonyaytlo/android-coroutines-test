@@ -2,7 +2,6 @@ package com.aytlo.tony.kotlin_coroutines.domain.core
 
 import com.aytlo.tony.kotlin_coroutines.data.core.Result
 import kotlinx.coroutines.*
-import timber.log.Timber
 import kotlin.coroutines.CoroutineContext
 
 
@@ -19,7 +18,7 @@ abstract class UseCase<out Type : Any, in Params>(
     operator fun invoke(params: Params, onResult: (Result<Type, Throwable>) -> Unit = {}) {
         launch {
             val result = withContext(backgroundContext) {
-                delay(1_000)
+                delay(1_000) // TEST
                 run(params)
             }
             onResult(result)

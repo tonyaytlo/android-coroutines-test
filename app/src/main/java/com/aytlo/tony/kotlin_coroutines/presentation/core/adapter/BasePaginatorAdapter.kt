@@ -26,7 +26,7 @@ abstract class BasePaginatorAdapter(
         delegates.forEach {
             delegatesManager.addDelegate(it)
         }
-        initItems()
+        initEmptyItemsList()
     }
 
     override fun showLoading() {
@@ -100,7 +100,7 @@ abstract class BasePaginatorAdapter(
         }
     }
 
-    private fun initItems() {
+    private fun initEmptyItemsList() {
         items = mutableListOf()
     }
 }

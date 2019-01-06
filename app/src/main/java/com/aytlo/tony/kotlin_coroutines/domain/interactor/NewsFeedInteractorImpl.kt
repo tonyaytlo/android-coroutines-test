@@ -31,7 +31,6 @@ class NewsFeedInteractorImpl
 
     override suspend fun run(params: Action): Result<None, Throwable> {
         Timber.d("%s run", Thread.currentThread().name)
-
         return params.action()
     }
 
