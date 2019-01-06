@@ -1,6 +1,7 @@
 package com.aytlo.tony.kotlin_coroutines.di.repository
 
 import com.aytlo.tony.kotlin_coroutines.data.source.remote.NewsService
+import com.aytlo.tony.kotlin_coroutines.presentation.util.NetworkHandler
 import com.aytlo.tony.kotlin_coroutines.repository.NewsRepository
 import com.aytlo.tony.kotlin_coroutines.repository.NewsRepositoryImpl
 import dagger.Module
@@ -12,5 +13,6 @@ class RepositoryModule {
 
     @Provides
     @Singleton
-    fun provideNewsRepository(newsService: NewsService): NewsRepository = NewsRepositoryImpl(newsService)
+    fun provideNewsRepository(newsService: NewsService, networkHandler: NetworkHandler): NewsRepository =
+        NewsRepositoryImpl(newsService, networkHandler)
 }

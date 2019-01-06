@@ -18,6 +18,7 @@ sealed class Result<out Value, out Error : Throwable> {
         }
 }
 
+
 fun <From, To, Error : Throwable> Result<From, Error>.map(transform: (From) -> To): Result<To, Error> =
     when (this) {
         is Result.Success -> Result.Success(transform(value))

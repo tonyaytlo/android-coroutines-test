@@ -38,6 +38,9 @@ ext {
     okhttp_version = '3.12.0'
     glides_version = '4.8.0'
     dagger_version = '2.15'
+    timber_version = '4.7.1'
+    androidx_base_version = '1.0.0'
+    delegate_adapter_version = '4.0.0'
 }
 
 dependencies {
@@ -66,5 +69,13 @@ dependencies {
     //glide
     implementation "com.github.bumptech.glide:glide:$glides_version"
     annotationProcessor "com.github.bumptech.glide:compiler:$glides_version"
+    //log
+    implementation "com.jakewharton.timber:timber:$timber_version"
+    //recycler view
+    implementation "androidx.recyclerview:recyclerview:$androidx_base_version"
+    //card view
+    implementation "androidx.cardview:cardview:$androidx_base_version"
+    //delegate adapter
+    implementation "com.hannesdorfmann:adapterdelegates4:$delegate_adapter_version"
 
 }

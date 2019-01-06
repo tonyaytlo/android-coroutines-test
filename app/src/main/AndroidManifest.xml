@@ -13,7 +13,7 @@
             android:supportsRtl="true"
             android:name=".presentation.AndroidApp"
             android:theme="@style/AppTheme">
-        <activity android:name="com.aytlo.tony.kotlin_coroutines.presentation.main.MainActivity">
+        <activity android:name="com.aytlo.tony.kotlin_coroutines.presentation.ui.news_feed.NewsFeedActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>

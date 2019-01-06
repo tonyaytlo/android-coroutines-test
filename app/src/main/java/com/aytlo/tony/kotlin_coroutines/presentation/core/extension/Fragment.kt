@@ -9,19 +9,17 @@ import androidx.fragment.app.FragmentTransaction
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.ViewModelProvider.Factory
 import androidx.lifecycle.ViewModelProviders
-import com.aytlo.tony.kotlin_coroutines.presentation.core.SingleFragmentActivity
 import com.aytlo.tony.kotlin_coroutines.presentation.core.BaseFragment
+import com.aytlo.tony.kotlin_coroutines.presentation.core.SingleFragmentActivity
 import kotlinx.android.synthetic.main.activity_base_layout.*
 
 
 inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) =
     beginTransaction().func().commit()
 
-inline fun <reified T : ViewModel> Fragment.viewModel(factory: Factory, body: T.() -> Unit): T {
-    val vm = ViewModelProviders.of(this, factory)[T::class.java]
-    vm.body()
-    return vm
-}
+inline fun <reified T : ViewModel> Fragment.viewModel(factory: Factory) =
+    ViewModelProviders.of(this, factory)[T::class.java]
+
 
 fun BaseFragment.close() = fragmentManager?.popBackStack()
 

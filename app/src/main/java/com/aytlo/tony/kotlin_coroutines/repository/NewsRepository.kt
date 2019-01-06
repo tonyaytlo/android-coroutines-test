@@ -5,5 +5,5 @@ import com.aytlo.tony.kotlin_coroutines.data.model.SearchResult
 
 interface NewsRepository {
 
-    fun search(): Result<SearchResult, Throwable>
+    fun search(page: Int, pageSize: Int): Result<SearchResult, Throwable>
 }

@@ -11,5 +11,5 @@ class NetworkHandler
 
     val isConnected
         get() = (context.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager)
-            .activeNetworkInfo?.isConnectedOrConnecting
+            .activeNetworkInfo?.isConnected ?: false
 }
