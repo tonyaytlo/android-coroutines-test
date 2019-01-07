@@ -16,13 +16,11 @@
 
         <TextView
             android:id="@+id/tvPubDate"
+            style="@style/DescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_padding_small"
             android:layout_marginBottom="@dimen/margin_padding_small"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:textColor="@color/colorTextGray"
             android:textSize="@dimen/text_size_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -30,13 +28,12 @@
 
         <TextView
             android:id="@+id/tvSection"
+            style="@style/DescriptionText"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_small"
             android:layout_marginBottom="@dimen/margin_padding_small"
-            android:ellipsize="marquee"
-            android:singleLine="true"
-            android:textColor="@color/colorTextGray"
+            android:textSize="@dimen/text_size_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Politics" />
@@ -57,6 +54,7 @@
             android:layout_marginEnd="@dimen/margin_padding_small"
             android:layout_marginBottom="@dimen/margin_padding_tiny"
             android:ellipsize="marquee"
+            android:singleLine="true"
             android:textColor="@color/colorTextLight"
             app:layout_constraintBottom_toTopOf="@+id/tvSection"
             app:layout_constraintEnd_toEndOf="parent"

@@ -17,16 +17,16 @@ class NewsRepositoryImpl
 
     override fun search(page: Int, pageSize: Int): Result<SearchResult, Throwable> {
         if (!networkHandler.isConnected) {
-            return Failure(NetworkConnection)
+            return Failure(NetworkConnection())
         }
         return try {
             val response = newsService.searchNews(page, pageSize).execute()
             when (response.isSuccessful) {
                 true -> Success(response.body()!!).map { it.response }
-                false -> Failure(ServerError(response.errorBody()?.string() ?: "Response failure"))
+                false -> Failure(ServerError())
             }
         } catch (throwable: Throwable) {
-            Failure(ServerError(throwable.message))
+            Failure(ServerError())
         }
     }
 }

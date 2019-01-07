@@ -10,4 +10,14 @@
         <item name="android:windowBackground">@color/colorBackgroundDark</item>
     </style>
 
+    <!-- View theme. -->
+    <style name="SingleLineText">
+        <item name="android:singleLine">true</item>
+        <item name="android:ellipsize">marquee</item>
+    </style>
+
+    <style name="DescriptionText" parent="SingleLineText">
+        <item name="android:textColor">@color/colorTextGray</item>
+    </style>
+
 </resources>

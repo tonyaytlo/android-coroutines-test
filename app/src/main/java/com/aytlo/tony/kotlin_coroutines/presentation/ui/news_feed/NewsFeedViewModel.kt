@@ -5,11 +5,11 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
 import com.aytlo.tony.kotlin_coroutines.data.model.News
 import com.aytlo.tony.kotlin_coroutines.domain.core.PaginationState
-import com.aytlo.tony.kotlin_coroutines.domain.interactor.NewsFeedInteractorImpl
+import com.aytlo.tony.kotlin_coroutines.domain.interactor.NewsFeedInteractor
 import javax.inject.Inject
 
 class NewsFeedViewModel
-@Inject constructor(private val feedInteractorImpl: NewsFeedInteractorImpl) : ViewModel() {
+@Inject constructor(private val feedInteractor: NewsFeedInteractor) : ViewModel() {
 
     private val paginationStateObserver: Observer<PaginationState<News>>
     private val mutableNextPageState = MutableLiveData<NextPageState>()
@@ -26,12 +26,13 @@ class NewsFeedViewModel
             mapToNewsFeedState(it)
             isLoading = false
         }
-        feedInteractorImpl.liveData().observeForever(paginationStateObserver)
+        feedInteractor.liveData().observeForever(paginationStateObserver)
     }
 
     override fun onCleared() {
         super.onCleared()
-        feedInteractorImpl.liveData().removeObserver(paginationStateObserver)
+        feedInteractor.unsubscribe()
+        feedInteractor.liveData().removeObserver(paginationStateObserver)
     }
 
     fun onLoadMore() {
@@ -57,11 +58,11 @@ class NewsFeedViewModel
 
     private fun loadNextPage() {
         mutableNextPageState.value = NextPageState.Loading
-        feedInteractorImpl.loadNextPage().apply { isLoading = true }
+        feedInteractor.loadNextPage().apply { isLoading = true }
     }
 
     private fun reload() {
-        feedInteractorImpl.reload().apply { isLoading = true }
+        feedInteractor.reload().apply { isLoading = true }
     }
 
     private fun mapToNewsFeedState(paginationState: PaginationState<News>) {

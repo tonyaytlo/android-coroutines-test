@@ -7,25 +7,25 @@ import kotlin.coroutines.CoroutineContext
 
 abstract class UseCase<out Type : Any, in Params>(
         protected var parentJob: Job = Job(),
+        private val foregroundContext: CoroutineContext = Dispatchers.Main,
         private val backgroundContext: CoroutineContext = Dispatchers.IO
 ) : CoroutineScope {
 
     override val coroutineContext: CoroutineContext
-        get() = Dispatchers.IO + parentJob
+        get() = foregroundContext + parentJob
 
     abstract suspend fun run(params: Params): Result<Type, Throwable>
 
     operator fun invoke(params: Params, onResult: (Result<Type, Throwable>) -> Unit = {}) {
         launch {
             val result = withContext(backgroundContext) {
-                delay(1_000) // TEST
                 run(params)
             }
             onResult(result)
         }
     }
 
-    fun unsubscribe() {
+    fun unsubscribeAll() {
         parentJob.cancel()
     }
 
