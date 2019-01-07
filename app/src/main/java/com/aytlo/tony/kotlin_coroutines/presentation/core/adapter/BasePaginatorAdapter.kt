@@ -86,18 +86,18 @@ abstract class BasePaginatorAdapter(
     }
 
     private fun removeAndNotify(baseItem: BaseItemModel) {
-        val positionItem = items.indexOf(baseItem)
-        safeRemoveAndNotifyByPos(positionItem)
+        postUi {
+            val positionItem = items.indexOf(baseItem)
+            safeRemoveAndNotifyByPos(positionItem)
+        }
     }
 
     private fun safeRemoveAndNotifyByPos(position: Int) {
         if (position == NO_POSITION) {
             return
         }
-        postUi {
-            items.removeAt(position)
-            notifyItemRemoved(position)
-        }
+        items.removeAt(position)
+        notifyItemRemoved(position)
     }
 
     private fun initEmptyItemsList() {
