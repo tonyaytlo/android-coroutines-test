@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">News feed</string>
+
+    <string name="API_KEY">44701ebc-54a3-43a7-a1e4-9a2bced572fa</string>
+    <string name="retry">Retry</string>
+    <string name="title_news_feed">News Feed</string>
+    <string name="base_error_with_retry">Sorry, something went wrong. \nPlease try again…</string>
+    <string name="error_reload_failed">Reload failed</string>
+</resources>
