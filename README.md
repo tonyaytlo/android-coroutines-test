@@ -1,2 +1,2 @@
 # android-coroutines-test
-Coroutines kotlin in android app
+A simple news feed app for Kotlin, Coroutines, Android Jetpack, Clean
