@@ -2,9 +2,9 @@ package com.aytlo.tony.kotlin_coroutines.domain.paginator
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
-import com.aytlo.tony.kotlin_coroutines.data.model.News
 import com.aytlo.tony.kotlin_coroutines.domain.core.PaginationState
 import com.aytlo.tony.kotlin_coroutines.domain.core.Paginator
+import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import com.aytlo.tony.kotlin_coroutines.repository.NewsRepository
 import javax.inject.Inject
 
@@ -31,7 +31,7 @@ class NewsFeedPaginator
         newsRepository.search(page, pageSize)
                 .take({
                     updateCurrentPage(page)
-                    postNewState(PaginationState(it.results, reload, page, false))
+                    postNewState(PaginationState(it, reload, page, false))
                 },
                         { postNewState(PaginationState(mutableListOf(), reload, page, true)) })
     }

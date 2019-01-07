@@ -9,5 +9,5 @@ data class SearchResult(
         val currentPage: Int,
         val pages: Int,
         val orderBy: String,
-        val results: MutableList<News>
+        val results: MutableList<NewsEntity>
 )

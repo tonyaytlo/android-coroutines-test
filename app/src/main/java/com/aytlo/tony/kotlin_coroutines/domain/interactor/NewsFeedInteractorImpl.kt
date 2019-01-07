@@ -2,10 +2,11 @@ package com.aytlo.tony.kotlin_coroutines.domain.interactor
 
 import androidx.lifecycle.LiveData
 import com.aytlo.tony.kotlin_coroutines.data.core.Result
-import com.aytlo.tony.kotlin_coroutines.data.model.News
+import com.aytlo.tony.kotlin_coroutines.data.model.NewsEntity
 import com.aytlo.tony.kotlin_coroutines.domain.core.PaginationState
 import com.aytlo.tony.kotlin_coroutines.domain.core.Paginator
 import com.aytlo.tony.kotlin_coroutines.domain.core.UseCase
+import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import javax.inject.Inject
 
 class NewsFeedInteractorImpl

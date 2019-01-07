@@ -3,9 +3,10 @@ package com.aytlo.tony.kotlin_coroutines.presentation.ui.news_feed
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModel
-import com.aytlo.tony.kotlin_coroutines.data.model.News
+import com.aytlo.tony.kotlin_coroutines.data.model.NewsEntity
 import com.aytlo.tony.kotlin_coroutines.domain.core.PaginationState
 import com.aytlo.tony.kotlin_coroutines.domain.interactor.NewsFeedInteractor
+import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import javax.inject.Inject
 
 class NewsFeedViewModel

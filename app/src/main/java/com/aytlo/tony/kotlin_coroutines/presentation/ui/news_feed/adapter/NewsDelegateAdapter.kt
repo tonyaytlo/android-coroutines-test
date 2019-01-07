@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aytlo.tony.kotlin_coroutines.R
-import com.aytlo.tony.kotlin_coroutines.data.model.News
+import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import com.aytlo.tony.kotlin_coroutines.presentation.core.adapter.BaseItemModel
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import kotlinx.android.synthetic.main.item_news.view.*
@@ -33,8 +33,8 @@ class NewsDelegateAdapter(context: Context) : AdapterDelegate<MutableList<BaseIt
 
     internal class NewsViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
         fun bind(news: News) {
-            itemView.tvTitle.text = news.webTitle
-            itemView.tvPubDate.text = news.webPublicationDate
+            itemView.tvTitle.text = news.title
+            itemView.tvPubDate.text = news.getStringDate()
             itemView.tvSection.text = news.sectionName
         }
     }
