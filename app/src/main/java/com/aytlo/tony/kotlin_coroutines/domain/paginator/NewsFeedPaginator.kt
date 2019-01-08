@@ -11,6 +11,10 @@ import javax.inject.Inject
 class NewsFeedPaginator
 @Inject constructor(private val newsRepository: NewsRepository) : Paginator<News> {
 
+    companion object {
+        private const val FIRST_PAGE = 1
+    }
+
     private val liveData: MutableLiveData<PaginationState<News>> = MutableLiveData()
     private val pageSize = 20
     private var currentPage = 0
@@ -20,7 +24,7 @@ class NewsFeedPaginator
     }
 
     override fun reload() {
-        loadPage(1, true)
+        loadPage(FIRST_PAGE, true)
     }
 
     override fun liveData(): LiveData<PaginationState<News>> {
