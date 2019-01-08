@@ -69,7 +69,7 @@ abstract class BasePaginatorAdapter(
             val oldItemCount = itemCount
             items.addAll(page)
             val newItemCount = itemCount - oldItemCount
-            notifyItemRangeInserted(oldItemCount, newItemCount)
+            notifyItemRangeInserted(oldItemCount + 1, newItemCount)
         }
     }
 

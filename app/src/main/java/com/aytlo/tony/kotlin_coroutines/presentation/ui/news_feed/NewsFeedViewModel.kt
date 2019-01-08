@@ -71,6 +71,7 @@ class NewsFeedViewModel
             mutableNextPageState.value = NextPageState.SuccessLoading(mutableListOf())
             return
         }
+        isNextPageLoadingFailure = false
         if (paginationState.hasError) {
             if (paginationState.reloaded) {
                 mutableReloadState.value = ReloadState.FailureLoading
@@ -82,7 +83,6 @@ class NewsFeedViewModel
             mutableReloadState.value = ReloadState.SuccessLoading(paginationState.dataList.toMutableList())
         } else {
             mutableNextPageState.value = NextPageState.SuccessLoading(paginationState.dataList.toMutableList())
-            isNextPageLoadingFailure = false
         }
     }
 }

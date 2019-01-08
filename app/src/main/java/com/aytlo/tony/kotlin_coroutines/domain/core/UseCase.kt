@@ -6,10 +6,12 @@ import kotlin.coroutines.CoroutineContext
 
 
 abstract class UseCase<out Type : Any, in Params>(
-        protected var parentJob: Job = Job(),
         private val foregroundContext: CoroutineContext = Dispatchers.Main,
         private val backgroundContext: CoroutineContext = Dispatchers.IO
 ) : CoroutineScope {
+    
+
+    private var parentJob: Job = Job()
 
     override val coroutineContext: CoroutineContext
         get() = foregroundContext + parentJob
