@@ -1,18 +1,19 @@
 package com.aytlo.tony.kotlin_coroutines.presentation.ui.news_feed
 
 import androidx.lifecycle.MutableLiveData
-import androidx.lifecycle.Observer
 import com.aytlo.tony.kotlin_coroutines.domain.core.PaginationState
 import com.aytlo.tony.kotlin_coroutines.domain.interactor.NewsFeedInteractor
 import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import com.aytlo.tony.kotlin_coroutines.presentation.core.BaseViewModel
-import kotlinx.coroutines.launch
+import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.launchComposite
+import kotlinx.coroutines.ObsoleteCoroutinesApi
+import kotlinx.coroutines.channels.consumeEach
 import javax.inject.Inject
 
+@ObsoleteCoroutinesApi
 class NewsFeedViewModel
 @Inject constructor(private val feedInteractor: NewsFeedInteractor) : BaseViewModel() {
 
-    private val paginationStateObserver: Observer<PaginationState<News>>
     private val mutableNextPageState = MutableLiveData<NextPageState>()
     private val mutableReloadState = MutableLiveData<ReloadState>()
 
@@ -23,18 +24,12 @@ class NewsFeedViewModel
     val reloadState = mutableReloadState
 
     init {
-        paginationStateObserver = Observer {
-            launch {
+        launchComposite {
+            feedInteractor.sourceData().consumeEach {
                 mapToNewsFeedState(it)
                 isLoading = false
-            }.apply { addJob(this) }
+            }
         }
-        feedInteractor.liveData().observeForever(paginationStateObserver)
-    }
-
-    override fun onCleared() {
-        super.onCleared()
-        feedInteractor.liveData().removeObserver(paginationStateObserver)
     }
 
     fun onLoadMore() {
@@ -61,16 +56,16 @@ class NewsFeedViewModel
     private fun loadNextPage() {
         mutableNextPageState.value = NextPageState.Loading
         isLoading = true
-        launch(backgroundContext) {
+        launchComposite(backgroundContext) {
             feedInteractor.loadNextPage()
-        }.apply { addJob(this) }
+        }
     }
 
     private fun reload() {
         isLoading = true
-        launch(backgroundContext) {
+        launchComposite(backgroundContext) {
             feedInteractor.reload()
-        }.apply { addJob(this) }
+        }
     }
 
     private fun mapToNewsFeedState(paginationState: PaginationState<News>) {

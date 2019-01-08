@@ -18,7 +18,7 @@ class NewsRepositoryImpl
                     private val newsEntityMapper: NewsEntityMapper,
                     private val networkHandler: NetworkHandler) : NewsRepository {
 
-    override fun search(page: Int, pageSize: Int): Result<MutableList<News>, Throwable> {
+    override suspend fun search(page: Int, pageSize: Int): Result<MutableList<News>, Throwable> {
         if (!networkHandler.isConnected) {
             return Failure(NetworkConnection())
         }

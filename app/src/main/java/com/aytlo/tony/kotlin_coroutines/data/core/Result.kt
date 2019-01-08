@@ -16,6 +16,12 @@ sealed class Result<out Value, out Error : Throwable> {
                 is Success -> onSuccess(value)
                 is Failure -> onFailure(error)
             }
+
+    suspend fun takeSuspend(onSuccess: suspend (Value) -> Any, onFailure: suspend (Error) -> Any): Any =
+            when (this) {
+                is Success -> onSuccess(value)
+                is Failure -> onFailure(error)
+            }
 }
 
 fun <From, To, Error : Throwable> Result<From, Error>.map(transform: (From) -> To): Result<To, Error> =

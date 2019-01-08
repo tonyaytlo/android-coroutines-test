@@ -1,13 +1,13 @@
 package com.aytlo.tony.kotlin_coroutines.domain.core
 
-import androidx.lifecycle.LiveData
+import kotlinx.coroutines.channels.Channel
 
 interface Paginator<Model> {
 
-    fun loadNextPage()
+    suspend fun loadNextPage()
 
-    fun reload()
+    suspend fun reload()
 
-    fun liveData(): LiveData<PaginationState<Model>>
+    fun sourceData(): Channel<PaginationState<Model>>
 
 }

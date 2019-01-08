@@ -1,11 +1,10 @@
 package com.aytlo.tony.kotlin_coroutines.domain.paginator
 
-import androidx.lifecycle.LiveData
-import androidx.lifecycle.MutableLiveData
 import com.aytlo.tony.kotlin_coroutines.domain.core.PaginationState
 import com.aytlo.tony.kotlin_coroutines.domain.core.Paginator
 import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import com.aytlo.tony.kotlin_coroutines.repository.NewsRepository
+import kotlinx.coroutines.channels.Channel
 import javax.inject.Inject
 
 class NewsFeedPaginator
@@ -15,36 +14,36 @@ class NewsFeedPaginator
         private const val FIRST_PAGE = 1
     }
 
-    private val liveData: MutableLiveData<PaginationState<News>> = MutableLiveData()
+    private val mutableSourceData: Channel<PaginationState<News>> = Channel()
+    private val sourceData = mutableSourceData
     private val pageSize = 20
     private var currentPage = 0
 
-    override fun loadNextPage() {
+    override suspend fun loadNextPage() {
         loadPage(currentPage + 1)
     }
 
-    override fun reload() {
+    override suspend fun reload() {
         loadPage(FIRST_PAGE, true)
     }
 
-    override fun liveData(): LiveData<PaginationState<News>> {
-        return liveData
-    }
-
-    private fun loadPage(page: Int, reload: Boolean = false) {
+    private suspend fun loadPage(page: Int, reload: Boolean = false) {
         newsRepository.search(page, pageSize)
-                .take({
+                .takeSuspend({
                     updateCurrentPage(page)
-                    postNewState(PaginationState(it, reload, page, false))
+                    postNewData(PaginationState(it, reload, page, false))
                 },
-                        { postNewState(PaginationState(mutableListOf(), reload, page, true)) })
+                        { postNewData(PaginationState(mutableListOf(), reload, page, true)) })
     }
 
     private fun updateCurrentPage(newPage: Int) {
         currentPage = newPage
     }
 
-    private fun postNewState(paginationState: PaginationState<News>) {
-        liveData.postValue(paginationState)
+    private suspend fun postNewData(paginationState: PaginationState<News>) {
+        mutableSourceData.send(paginationState)
     }
+
+    override fun sourceData(): Channel<PaginationState<News>> = sourceData
+
 }
