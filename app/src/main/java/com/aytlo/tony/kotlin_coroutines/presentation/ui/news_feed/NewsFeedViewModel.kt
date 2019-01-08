@@ -5,7 +5,7 @@ import com.aytlo.tony.kotlin_coroutines.domain.core.PaginationState
 import com.aytlo.tony.kotlin_coroutines.domain.interactor.NewsFeedInteractor
 import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import com.aytlo.tony.kotlin_coroutines.presentation.core.BaseViewModel
-import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.launchComposite
+import com.aytlo.tony.kotlin_coroutines.presentation.core.launchComposite
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.consumeEach
 import javax.inject.Inject
@@ -73,6 +73,7 @@ class NewsFeedViewModel
             mutableNextPageState.value = NextPageState.SuccessLoading(mutableListOf())
             return
         }
+        isNextPageLoadingFailure = false
         if (paginationState.hasError) {
             if (paginationState.reloaded) {
                 mutableReloadState.value = ReloadState.FailureLoading
@@ -84,7 +85,6 @@ class NewsFeedViewModel
             mutableReloadState.value = ReloadState.SuccessLoading(paginationState.dataList.toMutableList())
         } else {
             mutableNextPageState.value = NextPageState.SuccessLoading(paginationState.dataList.toMutableList())
-            isNextPageLoadingFailure = false
         }
     }
 }

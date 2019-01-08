@@ -5,5 +5,5 @@ import com.aytlo.tony.kotlin_coroutines.domain.model.News
 
 interface NewsRepository {
 
-     fun search(page: Int, pageSize: Int): Result<MutableList<News>, Throwable>
+    suspend fun search(page: Int, pageSize: Int): Result<MutableList<News>, Throwable>
 }

@@ -2,10 +2,9 @@ package com.aytlo.tony.kotlin_coroutines.presentation.core
 
 import androidx.lifecycle.ViewModel
 import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.unsafeLazy
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
+import kotlin.coroutines.EmptyCoroutineContext
 
 abstract class BaseViewModel(internal val foregroundContext: CoroutineContext = Dispatchers.Main,
                              internal val backgroundContext: CoroutineContext = Dispatchers.IO)
@@ -24,4 +23,10 @@ abstract class BaseViewModel(internal val foregroundContext: CoroutineContext = 
     fun addJob(job: Job) {
         compositeJob.add(job)
     }
+}
+
+fun BaseViewModel.launchComposite(context: CoroutineContext = EmptyCoroutineContext,
+                                  start: CoroutineStart = CoroutineStart.DEFAULT,
+                                  block: suspend CoroutineScope.() -> Unit): Job {
+    return launch(context, start, block).apply { addJob(this) }
 }

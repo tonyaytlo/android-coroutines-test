@@ -2,6 +2,7 @@ package com.aytlo.tony.kotlin_coroutines.presentation.ui.news_feed
 
 import android.os.Bundle
 import android.view.View
+import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aytlo.tony.kotlin_coroutines.R
@@ -11,7 +12,9 @@ import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.viewModel
 import com.aytlo.tony.kotlin_coroutines.presentation.ui.news_feed.adapter.NewsPaginationAdapter
 import com.aytlo.tony.kotlin_coroutines.presentation.util.PaginationScrollListener
 import kotlinx.android.synthetic.main.fragment_news_feed.*
+import kotlinx.coroutines.ObsoleteCoroutinesApi
 
+@ObsoleteCoroutinesApi
 class NewsFeedFragment : BaseFragment() {
 
     private lateinit var newsFeedViewModel: NewsFeedViewModel
@@ -79,6 +82,7 @@ class NewsFeedFragment : BaseFragment() {
 
     private fun initUi() {
         rvNews.layoutManager = LinearLayoutManager(activity)
+        rvNews.setHasFixedSize(true)
         rvNews.addOnScrollListener(
                 PaginationScrollListener(rvNews.layoutManager as LinearLayoutManager) { newsFeedViewModel.onLoadMore() })
         srNews.setOnRefreshListener { newsFeedViewModel.onReload() }
