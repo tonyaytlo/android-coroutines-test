@@ -11,7 +11,7 @@ abstract class BaseViewModel(internal val foregroundContext: CoroutineContext = 
                              internal val backgroundContext: CoroutineContext = Dispatchers.IO)
     : ViewModel(), CoroutineScope {
 
-    internal val compositeJob by unsafeLazy { CompositeJob() }
+    private val compositeJob by unsafeLazy { CompositeJob() }
 
     override val coroutineContext: CoroutineContext
         get() = foregroundContext

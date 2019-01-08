@@ -7,7 +7,6 @@ import com.aytlo.tony.kotlin_coroutines.domain.interactor.NewsFeedInteractor
 import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import com.aytlo.tony.kotlin_coroutines.presentation.core.BaseViewModel
 import kotlinx.coroutines.launch
-import timber.log.Timber
 import javax.inject.Inject
 
 class NewsFeedViewModel
@@ -26,7 +25,6 @@ class NewsFeedViewModel
     init {
         paginationStateObserver = Observer {
             launch {
-                Timber.d(Thread.currentThread().name)
                 mapToNewsFeedState(it)
                 isLoading = false
             }.apply { addJob(this) }
