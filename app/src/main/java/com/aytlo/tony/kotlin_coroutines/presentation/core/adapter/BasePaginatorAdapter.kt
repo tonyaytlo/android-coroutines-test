@@ -15,6 +15,9 @@ abstract class BasePaginatorAdapter(
         private const val NO_POSITION = -1
     }
 
+    private val itemLoading = LoadingDelegateAdapter.createItemModel()
+    private val itemErrorRetry = ErrorRetryDelegateAdapter.createItemModel()
+
     private var isLoadingAdded = false
     private var isErrorAdded = false
 
@@ -33,7 +36,7 @@ abstract class BasePaginatorAdapter(
         if (isLoadingAdded) {
             return
         }
-        insertAndNotify(LoadingDelegateAdapter.SINGLE_ITEM_LOADING)
+        insertAndNotify(itemLoading)
         isLoadingAdded = true
     }
 
@@ -41,7 +44,7 @@ abstract class BasePaginatorAdapter(
         if (!isLoadingAdded) {
             return
         }
-        removeAndNotify(LoadingDelegateAdapter.SINGLE_ITEM_LOADING)
+        removeAndNotify(itemLoading)
         isLoadingAdded = false
     }
 
@@ -49,7 +52,7 @@ abstract class BasePaginatorAdapter(
         if (isErrorAdded) {
             return
         }
-        insertAndNotify(ErrorRetryDelegateAdapter.SINGLE_ITEM_ERROR)
+        insertAndNotify(itemErrorRetry)
         isErrorAdded = true
     }
 
@@ -57,7 +60,7 @@ abstract class BasePaginatorAdapter(
         if (!isErrorAdded) {
             return
         }
-        removeAndNotify(ErrorRetryDelegateAdapter.SINGLE_ITEM_ERROR)
+        removeAndNotify(itemErrorRetry)
         isErrorAdded = false
     }
 

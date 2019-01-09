@@ -15,9 +15,7 @@ class ErrorRetryDelegateAdapter(context: Context, private val retryAction: () ->
     companion object {
         const val VIEW_TYPE = 2
 
-        val SINGLE_ITEM_ERROR by lazy { createItemModel() }
-
-        private fun createItemModel(): BaseItemModel {
+        fun createItemModel(): BaseItemModel {
             return object : BaseItemModel {
                 override fun getViewType() = ErrorRetryDelegateAdapter.VIEW_TYPE
             }

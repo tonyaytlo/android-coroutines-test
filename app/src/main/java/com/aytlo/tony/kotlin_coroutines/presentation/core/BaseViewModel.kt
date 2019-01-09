@@ -1,22 +1,21 @@
 package com.aytlo.tony.kotlin_coroutines.presentation.core
 
 import androidx.lifecycle.ViewModel
-import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.unsafeLazy
 import kotlinx.coroutines.*
 import kotlin.coroutines.CoroutineContext
 import kotlin.coroutines.EmptyCoroutineContext
 
-abstract class BaseViewModel(internal val foregroundContext: CoroutineContext = Dispatchers.Main,
-                             internal val backgroundContext: CoroutineContext = Dispatchers.IO)
-    : ViewModel(), CoroutineScope {
+abstract class BaseViewModel(
+        internal val foregroundContext: CoroutineContext = Dispatchers.Main,
+        internal val backgroundContext: CoroutineContext = Dispatchers.IO
+) : ViewModel(), CoroutineScope {
 
-    private val compositeJob by unsafeLazy { CompositeJob() }
+    private val compositeJob = CompositeJob()
 
     override val coroutineContext: CoroutineContext
         get() = foregroundContext
 
     override fun onCleared() {
-        super.onCleared()
         compositeJob.cancel()
     }
 
@@ -25,8 +24,10 @@ abstract class BaseViewModel(internal val foregroundContext: CoroutineContext = 
     }
 }
 
-fun BaseViewModel.launchComposite(context: CoroutineContext = EmptyCoroutineContext,
-                                  start: CoroutineStart = CoroutineStart.DEFAULT,
-                                  block: suspend CoroutineScope.() -> Unit): Job {
+fun BaseViewModel.launchAware(
+        context: CoroutineContext = EmptyCoroutineContext,
+        start: CoroutineStart = CoroutineStart.DEFAULT,
+        block: suspend CoroutineScope.() -> Unit
+): Job {
     return launch(context, start, block).apply { addJob(this) }
 }

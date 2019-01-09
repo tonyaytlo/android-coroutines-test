@@ -23,14 +23,14 @@ abstract class BaseFragment : Fragment() {
     lateinit var viewModelFactory: ViewModelProvider.Factory
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View =
-            inflater.inflate(layoutId(), container, false)
+            inflater.inflate(layoutId, container, false)
 
 
     fun showError(message: String) {
         Toast.makeText(activity ?: return, message, Toast.LENGTH_SHORT).show()
     }
 
-    abstract fun layoutId(): Int
+    abstract val layoutId: Int
 
     open fun onBackPressed() {}
 }

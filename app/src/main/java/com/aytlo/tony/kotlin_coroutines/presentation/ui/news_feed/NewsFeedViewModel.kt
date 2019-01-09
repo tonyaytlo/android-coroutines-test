@@ -5,7 +5,7 @@ import com.aytlo.tony.kotlin_coroutines.domain.core.PaginationState
 import com.aytlo.tony.kotlin_coroutines.domain.interactor.NewsFeedInteractor
 import com.aytlo.tony.kotlin_coroutines.domain.model.News
 import com.aytlo.tony.kotlin_coroutines.presentation.core.BaseViewModel
-import com.aytlo.tony.kotlin_coroutines.presentation.core.launchComposite
+import com.aytlo.tony.kotlin_coroutines.presentation.core.launchAware
 import kotlinx.coroutines.ObsoleteCoroutinesApi
 import kotlinx.coroutines.channels.consumeEach
 import javax.inject.Inject
@@ -24,7 +24,7 @@ class NewsFeedViewModel
     val reloadState = mutableReloadState
 
     init {
-        launchComposite {
+        launchAware {
             feedInteractor.sourceData().consumeEach {
                 mapToNewsFeedState(it)
                 isLoading = false
@@ -56,21 +56,20 @@ class NewsFeedViewModel
     private fun loadNextPage() {
         mutableNextPageState.value = NextPageState.Loading
         isLoading = true
-        launchComposite(backgroundContext) {
+        launchAware(backgroundContext) {
             feedInteractor.loadNextPage()
         }
     }
 
     private fun reload() {
         isLoading = true
-        launchComposite(backgroundContext) {
+        launchAware(backgroundContext) {
             feedInteractor.reload()
         }
     }
 
     private fun mapToNewsFeedState(paginationState: PaginationState<News>) {
         if (paginationState.allLoaded) {
-            mutableNextPageState.value = NextPageState.SuccessLoading(mutableListOf())
             return
         }
         isNextPageLoadingFailure = false

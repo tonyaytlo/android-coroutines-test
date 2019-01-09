@@ -21,7 +21,6 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="@dimen/margin_padding_small"
             android:layout_marginBottom="@dimen/margin_padding_small"
-            android:textSize="@dimen/text_size_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             tools:text="2014-02-17T12:05:47Z" />
@@ -33,14 +32,13 @@
             android:layout_height="wrap_content"
             android:layout_marginStart="@dimen/margin_padding_small"
             android:layout_marginBottom="@dimen/margin_padding_small"
-            android:textSize="@dimen/text_size_small"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             tools:text="Politics" />
 
         <View
             android:layout_width="0dp"
-            android:layout_height="@dimen/divider_height"
+            android:layout_height="@dimen/divider_size"
             android:background="@color/colorDividerLight"
             app:layout_constraintBottom_toBottomOf="@+id/tvTitle"
             app:layout_constraintEnd_toEndOf="@id/tvPubDate" />
@@ -54,7 +52,6 @@
             android:layout_marginEnd="@dimen/margin_padding_small"
             android:layout_marginBottom="@dimen/margin_padding_tiny"
             android:ellipsize="marquee"
-            android:singleLine="true"
             android:textColor="@color/colorTextLight"
             app:layout_constraintBottom_toTopOf="@+id/tvSection"
             app:layout_constraintEnd_toEndOf="parent"

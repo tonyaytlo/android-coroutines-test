@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aytlo.tony.kotlin_coroutines.R
+import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.unsafeLazy
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 
 
@@ -14,9 +15,7 @@ class LoadingDelegateAdapter(context: Context) : AdapterDelegate<MutableList<Bas
     companion object {
         const val VIEW_TYPE = 1
 
-        val SINGLE_ITEM_LOADING by lazy { createItemModel() }
-
-        private fun createItemModel(): BaseItemModel {
+        fun createItemModel(): BaseItemModel {
             return object : BaseItemModel {
                 override fun getViewType() = LoadingDelegateAdapter.VIEW_TYPE
             }

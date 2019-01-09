@@ -2,12 +2,11 @@ package com.aytlo.tony.kotlin_coroutines.presentation.ui.news_feed
 
 import android.os.Bundle
 import android.view.View
-import android.view.animation.AnimationUtils
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.aytlo.tony.kotlin_coroutines.R
 import com.aytlo.tony.kotlin_coroutines.presentation.core.BaseFragment
-import com.aytlo.tony.kotlin_coroutines.presentation.core.adapter.BaseItemModel
+import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.unsafeLazy
 import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.viewModel
 import com.aytlo.tony.kotlin_coroutines.presentation.ui.news_feed.adapter.NewsPaginationAdapter
 import com.aytlo.tony.kotlin_coroutines.presentation.util.PaginationScrollListener
@@ -16,11 +15,11 @@ import kotlinx.coroutines.ObsoleteCoroutinesApi
 
 @ObsoleteCoroutinesApi
 class NewsFeedFragment : BaseFragment() {
+    override val layoutId = R.layout.fragment_news_feed
 
     private lateinit var newsFeedViewModel: NewsFeedViewModel
-    private lateinit var newsPaginationAdapter: NewsPaginationAdapter
 
-    override fun layoutId() = R.layout.fragment_news_feed
+    private val adapter: NewsPaginationAdapter by unsafeLazy { createNewsFeedAdapter() }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -48,20 +47,20 @@ class NewsFeedFragment : BaseFragment() {
         when (state) {
             is NextPageState.Loading -> {
                 srNews.isEnabled = false
-                newsPaginationAdapter.hideError()
-                newsPaginationAdapter.showLoading()
+                adapter.hideError()
+                adapter.showLoading()
             }
             is NextPageState.FailureLoading -> {
                 srNews.isEnabled = true
-                newsPaginationAdapter.hideLoading()
-                newsPaginationAdapter.showError()
+                adapter.hideLoading()
+                adapter.showError()
 
             }
             is NextPageState.SuccessLoading -> {
                 srNews.isEnabled = true
-                newsPaginationAdapter.hideLoading()
-                newsPaginationAdapter.hideError()
-                newsPaginationAdapter.addNewPage(state.news as MutableList<BaseItemModel>)
+                adapter.hideLoading()
+                adapter.hideError()
+                adapter.addNewPage(state.page)
             }
         }
     }
@@ -74,19 +73,25 @@ class NewsFeedFragment : BaseFragment() {
             }
             is ReloadState.SuccessLoading -> {
                 srNews.isRefreshing = false
-                newsPaginationAdapter.clearAll()
-                newsPaginationAdapter.addNewPage(state.news as MutableList<BaseItemModel>)
+                adapter.clearAll()
+                adapter.addNewPage(state.page)
             }
         }
     }
 
     private fun initUi() {
-        rvNews.layoutManager = LinearLayoutManager(activity)
+        val layoutManager = LinearLayoutManager(activity)
+        rvNews.layoutManager = layoutManager
         rvNews.setHasFixedSize(true)
         rvNews.addOnScrollListener(
-                PaginationScrollListener(rvNews.layoutManager as LinearLayoutManager) { newsFeedViewModel.onLoadMore() })
+                PaginationScrollListener(layoutManager) { newsFeedViewModel.onLoadMore() }
+        )
+        rvNews.adapter = adapter
+
+        srNews.setColorSchemeResources(R.color.colorPrimary)
         srNews.setOnRefreshListener { newsFeedViewModel.onReload() }
-        newsPaginationAdapter = NewsPaginationAdapter(activity!!) { newsFeedViewModel.retryLoadMore() }
-        rvNews.adapter = newsPaginationAdapter
     }
+
+    private fun createNewsFeedAdapter(): NewsPaginationAdapter =
+            NewsPaginationAdapter(activity!!) { newsFeedViewModel.retryLoadMore() }
 }

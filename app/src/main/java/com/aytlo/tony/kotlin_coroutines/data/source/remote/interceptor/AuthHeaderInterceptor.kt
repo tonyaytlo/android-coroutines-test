@@ -8,7 +8,7 @@ import javax.inject.Inject
 import javax.inject.Singleton
 
 @Singleton
-class AuthenticationInterceptor
+class AuthHeaderInterceptor
 @Inject constructor(private val context: Context) : Interceptor {
 
     companion object {

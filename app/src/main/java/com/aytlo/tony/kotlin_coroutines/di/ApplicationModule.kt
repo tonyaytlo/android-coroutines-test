@@ -4,7 +4,7 @@ import android.content.Context
 import com.aytlo.tony.kotlin_coroutines.BuildConfig
 import com.aytlo.tony.kotlin_coroutines.data.source.remote.NewsApi
 import com.aytlo.tony.kotlin_coroutines.data.source.remote.NewsService
-import com.aytlo.tony.kotlin_coroutines.data.source.remote.interceptor.AuthenticationInterceptor
+import com.aytlo.tony.kotlin_coroutines.data.source.remote.interceptor.AuthHeaderInterceptor
 import com.aytlo.tony.kotlin_coroutines.presentation.AndroidApp
 import dagger.Module
 import dagger.Provides
@@ -54,6 +54,6 @@ class ApplicationModule(private val application: AndroidApp) {
     @Provides
     @Singleton
     fun provideAuthInterceptor(context: Context): Interceptor =
-            AuthenticationInterceptor(context)
+            AuthHeaderInterceptor(context)
 
 }
