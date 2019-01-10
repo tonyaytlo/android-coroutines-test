@@ -14,12 +14,11 @@ import com.aytlo.tony.kotlin_coroutines.presentation.core.SingleFragmentActivity
 import kotlinx.android.synthetic.main.activity_base_layout.*
 
 
-inline fun FragmentManager.inTransaction(func: FragmentTransaction.() -> FragmentTransaction) =
-        beginTransaction().func().commit()
+inline fun FragmentManager.inTransaction(action: FragmentTransaction.() -> FragmentTransaction) =
+        beginTransaction().action().commit()
 
 inline fun <reified T : ViewModel> Fragment.viewModel(factory: Factory) =
         ViewModelProviders.of(this, factory)[T::class.java]
-
 
 fun BaseFragment.close() = fragmentManager?.popBackStack()
 
