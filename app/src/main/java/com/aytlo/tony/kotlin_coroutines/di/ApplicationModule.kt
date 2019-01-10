@@ -2,6 +2,7 @@ package com.aytlo.tony.kotlin_coroutines.di
 
 import android.content.Context
 import com.aytlo.tony.kotlin_coroutines.BuildConfig
+import com.aytlo.tony.kotlin_coroutines.data.source.ApiKeyProvider
 import com.aytlo.tony.kotlin_coroutines.data.source.remote.NewsApi
 import com.aytlo.tony.kotlin_coroutines.data.source.remote.NewsService
 import com.aytlo.tony.kotlin_coroutines.data.source.remote.interceptor.AuthHeaderInterceptor
@@ -53,7 +54,7 @@ class ApplicationModule(private val application: AndroidApp) {
 
     @Provides
     @Singleton
-    fun provideAuthInterceptor(context: Context): Interceptor =
-            AuthHeaderInterceptor(context)
+    fun provideAuthInterceptor(apiKeyProvider: ApiKeyProvider): Interceptor =
+            AuthHeaderInterceptor(apiKeyProvider)
 
 }
