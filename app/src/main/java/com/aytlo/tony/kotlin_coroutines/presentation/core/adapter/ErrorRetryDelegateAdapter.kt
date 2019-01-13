@@ -9,7 +9,7 @@ import com.aytlo.tony.kotlin_coroutines.R
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 import kotlinx.android.synthetic.main.item_base_error_retry.view.*
 
-class ErrorRetryDelegateAdapter(context: Context, private val retryAction: () -> Unit) :
+open class ErrorRetryDelegateAdapter(context: Context, protected val retryAction: () -> Unit) :
         AdapterDelegate<MutableList<BaseItemModel>>() {
 
     companion object {
@@ -22,7 +22,7 @@ class ErrorRetryDelegateAdapter(context: Context, private val retryAction: () ->
         }
     }
 
-    private val inflater = LayoutInflater.from(context)
+    protected val inflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
             ErrorRetryViewHolder(inflater.inflate(R.layout.item_base_error_retry,
@@ -30,7 +30,7 @@ class ErrorRetryDelegateAdapter(context: Context, private val retryAction: () ->
                     .apply { btnRetry.setOnClickListener { retryAction() } }
             )
 
-    override fun isForViewType(items: MutableList<BaseItemModel>, position: Int): Boolean =
+    final override fun isForViewType(items: MutableList<BaseItemModel>, position: Int): Boolean =
             items[position].getViewType() == VIEW_TYPE
 
     override fun onBindViewHolder(items: MutableList<BaseItemModel>, position: Int,

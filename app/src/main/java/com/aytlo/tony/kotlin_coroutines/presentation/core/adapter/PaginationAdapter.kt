@@ -13,4 +13,9 @@ interface PaginationAdapter<T> {
     fun addNewPage(page: T)
 
     fun clearAll()
+
+    fun refresh(page: T) {
+        clearAll()
+        addNewPage(page)
+    }
 }

@@ -40,7 +40,7 @@ class NewsFeedFragment : BaseFragment() {
         super.onViewCreated(view, savedInstanceState)
         activity?.title = getString(R.string.title_news_feed)
         initUi()
-        newsFeedViewModel.onLoadMore()
+        savedInstanceState ?: loadData()
     }
 
     private fun renderNextPage(state: NextPageState) {
@@ -73,19 +73,21 @@ class NewsFeedFragment : BaseFragment() {
             }
             is ReloadState.SuccessLoading -> {
                 srNews.isRefreshing = false
-                adapter.clearAll()
-                adapter.addNewPage(state.page)
+                adapter.refresh(state.page)
             }
         }
+    }
+
+    private fun loadData() {
+        newsFeedViewModel.onLoadMore()
     }
 
     private fun initUi() {
         val layoutManager = LinearLayoutManager(activity)
         rvNews.layoutManager = layoutManager
         rvNews.setHasFixedSize(true)
-        rvNews.addOnScrollListener(
-                PaginationScrollListener(layoutManager) { newsFeedViewModel.onLoadMore() }
-        )
+        rvNews.addOnScrollListener(PaginationScrollListener(layoutManager)
+        { newsFeedViewModel.onLoadMore() })
         rvNews.adapter = adapter
 
         srNews.setColorSchemeResources(R.color.colorPrimary)

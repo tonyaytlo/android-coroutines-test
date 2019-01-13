@@ -26,7 +26,7 @@ class NewsFeedViewModel
     init {
         launchAware {
             feedInteractor.sourceData().consumeEach {
-                mapToNewsFeedState(it)
+                transformToNewsFeedState(it)
                 isLoading = false
             }
         }
@@ -68,7 +68,7 @@ class NewsFeedViewModel
         }
     }
 
-    private fun mapToNewsFeedState(paginationState: PaginationState<News>) {
+    private fun transformToNewsFeedState(paginationState: PaginationState<News>) {
         if (paginationState.allLoaded) {
             return
         }

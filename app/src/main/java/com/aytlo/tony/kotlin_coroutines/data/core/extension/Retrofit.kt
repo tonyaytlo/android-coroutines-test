@@ -37,7 +37,6 @@ suspend fun <T : Any> Call<T>.await(): Result<T, Error> {
                 continuation.resumeWithException(t)
             }
         })
-
         registerOnCompletion(continuation)
     }
 }

@@ -12,7 +12,7 @@ abstract class BasePaginatorAdapter(
 ) : ListDelegationAdapter<MutableList<BaseItemModel>>(), PaginationAdapter<MutableList<BaseItemModel>> {
 
     companion object {
-        private const val NO_POSITION = -1
+        const val NO_POSITION = -1
     }
 
     private val itemLoading = LoadingDelegateAdapter.createItemModel()

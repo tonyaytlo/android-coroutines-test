@@ -6,11 +6,10 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.aytlo.tony.kotlin_coroutines.R
-import com.aytlo.tony.kotlin_coroutines.presentation.core.extension.unsafeLazy
 import com.hannesdorfmann.adapterdelegates4.AdapterDelegate
 
 
-class LoadingDelegateAdapter(context: Context) : AdapterDelegate<MutableList<BaseItemModel>>() {
+open class LoadingDelegateAdapter(context: Context) : AdapterDelegate<MutableList<BaseItemModel>>() {
 
     companion object {
         const val VIEW_TYPE = 1
@@ -22,13 +21,13 @@ class LoadingDelegateAdapter(context: Context) : AdapterDelegate<MutableList<Bas
         }
     }
 
-    private val inflater = LayoutInflater.from(context)
+    protected val inflater = LayoutInflater.from(context)
 
     override fun onCreateViewHolder(parent: ViewGroup): RecyclerView.ViewHolder =
             LoadingViewHolder(inflater.inflate(R.layout.item_base_loading,
                     parent, false))
 
-    override fun isForViewType(items: MutableList<BaseItemModel>, position: Int): Boolean =
+    final override fun isForViewType(items: MutableList<BaseItemModel>, position: Int): Boolean =
             items[position].getViewType() == VIEW_TYPE
 
     override fun onBindViewHolder(items: MutableList<BaseItemModel>, position: Int,
